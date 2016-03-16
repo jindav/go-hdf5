@@ -58,6 +58,11 @@ func (g *Group) CreateAttributeWith(name string, dtype *Datatype, dspace *Datasp
 	return createAttribute(g.id, name, dtype, dspace, acpl)
 }
 
+// Opens an existing attribute.
+func (g *Group) OpenAttribute(name string) (*Attribute, error) {
+	return openAttribute(g.id, name)
+}
+
 func (g *Group) finalizer() {
 	if err := g.Close(); err != nil {
 		panic(fmt.Errorf("error closing group: %s", err))
