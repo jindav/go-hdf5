@@ -1,24 +1,28 @@
-## simple makefile to log workflow
-.PHONY: all test clean build install
+.PHONY: all test clean build install compile-native autoconf
 
-GOFLAGS ?= $(GOFLAGS:)
+PKG_NAME = github.com/jindav/go-hdf5
 
 all: install test
 
-
 build:
-	@go build $(GOFLAGS) ./...
+	go build ./...
 
 install:
-	@go get $(GOFLAGS) ./...
+	go install ./...
 
-test: install
-	@go test $(GOFLAGS) ./...
+install-full: compile-native
+	go install ./...
 
-bench: install
-	@go test -bench=. $(GOFLAGS) ./...
+test:
+	go test ./...
 
 clean:
-	@go clean $(GOFLAGS) -i ./...
+	@go clean -i ./...
 
-## EOF
+autoconf:
+	@mkdir -p vendor/c-hdf5/build
+	@cd vendor/c-hdf5 && ./configure --prefix=`pwd`/build
+
+compile-native: autoconf
+	@cd vendor/c-hdf5 && make install
+

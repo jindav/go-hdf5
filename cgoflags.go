@@ -1,7 +1,7 @@
 package hdf5
 
 // #cgo LDFLAGS: -lhdf5 -lhdf5_hl
-// #cgo darwin CFLAGS: -I/usr/local/include
-// #cgo darwin LDFLAGS: -L/usr/local/lib
+// #cgo CFLAGS: -I${SRCDIR}/vendor/c-hdf5/build/include
+// #cgo LDFLAGS: -L${SRCDIR}/vendor/c-hdf5/build/lib
 // #include "hdf5.h"
 import "C"
